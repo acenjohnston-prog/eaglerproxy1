@@ -5,7 +5,7 @@ const net = require("net");
 const MINECRAFT_SERVER_HOST = "136.243.83.105";
 const MINECRAFT_SERVER_PORT = 22815;
 
-// Dynamically use the port provided by Replit/Render, or fallback to 8081 locally
+// Dynamically use the port provided by Render/Replit, or fallback to 8081 locally
 const PORT = process.env.PORT || 8081;
 const wss = new WebSocket.Server({ port: PORT });
 
@@ -48,11 +48,3 @@ wss.on("connection", function connection(ws) {
 });
 
 console.log(`✅ EaglerProxy running on port ${PORT}`);
-
-  mcSocket.on("end", () => {
-    ws.close();
-    console.log("Lost connection to Minecraft server");
-  });
-});
-
-console.log("✅ EaglerProxy running on port 8081");
