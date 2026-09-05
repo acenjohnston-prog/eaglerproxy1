@@ -1,12 +1,13 @@
 const WebSocket = require("ws");
 const net = require("net");
 
-// 🔧 Change this to your Apex Hosting server address + port
+// 🔧 Your Apex Hosting server address + port
 const MINECRAFT_SERVER_HOST = "136.243.83.105";
 const MINECRAFT_SERVER_PORT = 22815;
 
-// Start WebSocket server on port 8081 (Eaglercraft default)
-const wss = new WebSocket.Server({ port: 8081 });
+// Dynamically use the port provided by Replit/Render, or fallback to 8081 locally
+const PORT = process.env.PORT || 8081;
+const wss = new WebSocket.Server({ port: PORT });
 
 wss.on("connection", function connection(ws) {
   console.log("Eaglercraft player connected!");
@@ -34,6 +35,19 @@ wss.on("connection", function connection(ws) {
     mcSocket.end();
     console.log("Eaglercraft player disconnected");
   });
+
+  mcSocket.on("error", (err) => {
+    console.error("Minecraft socket error:", err.message);
+    ws.close();
+  });
+
+  mcSocket.on("end", () => {
+    ws.close();
+    console.log("Lost connection to Minecraft server");
+  });
+});
+
+console.log(`✅ EaglerProxy running on port ${PORT}`);
 
   mcSocket.on("end", () => {
     ws.close();
