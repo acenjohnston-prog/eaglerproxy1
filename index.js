@@ -2,8 +2,8 @@ const WebSocket = require("ws");
 const net = require("net");
 
 // 🔧 Change this to your Apex Hosting server address + port
-const MINECRAFT_SERVER_HOST = "yourname.apexmc.co";
-const MINECRAFT_SERVER_PORT = 25565;
+const MINECRAFT_SERVER_HOST = "136.243.83.105";
+const MINECRAFT_SERVER_PORT = 22815;
 
 // Start WebSocket server on port 8081 (Eaglercraft default)
 const wss = new WebSocket.Server({ port: 8081 });
